@@ -32,7 +32,7 @@ public:
 
         // --- Configura ADC1 ---
         adc1_config_width(ADC_WIDTH_BIT_12);
-        esp_err_t err = adc1_config_channel_atten(_adc_channel, ADC_ATTEN_DB_12);
+        esp_err_t err = adc1_config_channel_atten(_adc_channel, ADC_ATTEN_DB_12); // <- aqui
         if (err != ESP_OK) {
             return false;
         }
@@ -41,13 +41,13 @@ public:
         i2s_config_t i2s_config = {};
         i2s_config.mode = (i2s_mode_t)(
             I2S_MODE_MASTER |
-            I2S_MODE_RX |              // <- ESSENCIAL PARA ADC + DMA
+            I2S_MODE_RX |
             I2S_MODE_ADC_BUILT_IN
         );
         i2s_config.sample_rate = _sample_rate;
         i2s_config.bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT;
         i2s_config.channel_format = I2S_CHANNEL_FMT_ONLY_RIGHT;
-        i2s_config.communication_format = I2S_COMM_FORMAT_STAND_I2S;
+        i2s_config.communication_format = I2S_COMM_FORMAT_STAND_I2S; // <- aqui
         i2s_config.dma_buf_count = 4;
         i2s_config.dma_buf_len = _dma_block_len;
         i2s_config.use_apll = false;
@@ -86,6 +86,7 @@ public:
 
         return true;
     }
+
 
     void onData(DataCallback cb) {
         _cb = cb;
