@@ -32,6 +32,8 @@ void loop() {
     if (now - lastPrint >= 100) {  // a cada 100 ms
         lastPrint = now;
         size_t n = adcDma.read(readBuffer, 256);
-        IIKit.WSerial.plot("adcValue", (uint32_t)10, readBuffer, n);
+        if (n > 0) {
+            wserial::plot("adcValue", 10, readBuffer, n);
+        }
     }
 }
