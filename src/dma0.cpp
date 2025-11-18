@@ -1,8 +1,10 @@
 #include <iikit.h>
-#include <util/AdcDmaEsp.h>
+#include "AdcDmaEsp.h"
 
-// Instância global
+// 2) Configurações para o DMA_ADC
+#define BLOCK_SIZE 512  // 512 amostras
 AdcDmaEsp adcDma;
+uint16_t samples[BLOCK_SIZE];
 
 // Buffer para leitura no loop
 static int16_t readBuffer[256];
